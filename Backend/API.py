@@ -6,8 +6,8 @@ app = Flask(__name__, template_folder = '../front/app/src',static_url_path=('/')
 CORS(app)
 
 #methods to consult
-@app.route('Api/User/<string:Username>+<string:Pass>', methods =['GET'])
-def getuser(Username, Pass):
+@app.route('/Api/User/<string:Username>+<string:Pass>', methods =['GET'])
+def getUser(Username, Pass):
     result = User.consults(Username,Pass)
     return(result)
 
