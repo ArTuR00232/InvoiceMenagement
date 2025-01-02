@@ -1,6 +1,7 @@
 import React from "react";
 import { Menu } from "./MenuHeader.js";
-import { Cookies } from "react-cookie";
+import { Cookies } from "js-cookie";
+import LoginOut from "./Login-out.js";
 
 
 export function Home(){
@@ -23,6 +24,9 @@ export function Home(){
                 </div>
                 <div className="content">
                     content
+                    <div>
+                       <LoginOut/>
+                    </div>
                 </div>
             </div>
         </div>
