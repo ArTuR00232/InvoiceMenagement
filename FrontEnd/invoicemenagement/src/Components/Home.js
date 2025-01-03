@@ -2,7 +2,7 @@ import React from "react";
 import { Menu } from "./MenuHeader.js";
 import { Cookies } from "js-cookie";
 import LoginOut from "./Login-out.js";
-
+import Namer from "./userName.js";
 
 export function Home(){
     return(
@@ -16,7 +16,7 @@ export function Home(){
                         Welcome
                     </h4>
                 </div>
-                    
+                    <Namer/>
                 <div className="text-title">
                     <h4>
                         lets menage your finances
