@@ -1,5 +1,6 @@
 import Connect
 from flask import jsonify
+import Encryption
 
 def consults(Username='', Pass=''):
     """_summary_
@@ -14,16 +15,24 @@ def consults(Username='', Pass=''):
     conn = Connect.DB()
     cursor = conn.cursor()
 
-    query = 'SELECFROM Users WHERE username = ? '
+    query = 'SELECT * FROM Users WHERE username = ? '
     cursor.execute(query, (Username, ))
     df = cursor.fetchall()
-    #encryption!!
-    list_user = [{
+    try:
+        pw = Encryption.decrypt(df[0][2])
+        if(pw != Pass):
+            return[False]
+        if(pw == Pass):
+            list_user = [{
         'ID': row[0],
         'username': row[1],
         'Session': 'true',
-    } for row in df]
-    cursor.close()
-    conn.close()
-    return jsonify(list_user)
+         } for row in df]          
+        cursor.close()
+        conn.close()
+        return jsonify(list_user)
+    
+    except:
+        return[False]
+
 
