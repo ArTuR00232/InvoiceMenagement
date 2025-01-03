@@ -2,6 +2,15 @@ import Connect
 from flask import jsonify
 
 def consults(Username='', Pass=''):
+    """_summary_
+
+    Args:
+        Username (str): _description_. Defaults to ''.
+        Pass (str): _description_. Defaults to ''.
+
+    Returns:
+        _type_: json Object
+    """
     conn = Connect.DB()
     cursor = conn.cursor()
 
