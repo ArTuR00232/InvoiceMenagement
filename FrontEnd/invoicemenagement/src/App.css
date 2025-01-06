@@ -67,6 +67,11 @@
 }
 
 /*User page*/
+.codeImportant
+{
+  height: -15px;
+  color: red;
+}   
 .toUserP{
   font-size: 25px;
   margin-top: 25px;
@@ -89,4 +94,9 @@
   display: flex;
   justify-content: center;
 }
-
+.space{
+  margin-top: 100px;
+}
+.button{
+  margin: 10px !important;
+}
