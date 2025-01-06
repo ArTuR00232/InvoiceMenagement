@@ -1,6 +1,7 @@
 import Connect
 from flask import jsonify
 import Encryption
+import Code as restCode
 
 def consults(Username='', Pass=''):
     """_summary_
@@ -35,4 +36,23 @@ def consults(Username='', Pass=''):
     except:
         return[False]
 
-
+def delete(id):
+    """
+    this modeule is for delete an User.\n
+    id 
+    Args:
+        id (int): is the idUser.
+    Returns:
+        _type_: string
+    """
+    conn = Connect.DB()
+    cursor = conn.cursor()
+    query = 'SELECT (username) FROM Users WHERE id = ?'
+    cursor.execute(query, (id,))
+    name = cursor.fetchall()
+    query = 'DELETE FROM Users WHERE id = ?'
+    cursor.execute(query,(id,))
+    conn.commit()
+    conn.close()
+    restCode.codeDelete(id)
+    return(name[0][0])

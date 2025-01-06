@@ -11,7 +11,7 @@ def consults(id):
     """
     conn = Connect.DB()
     cursor = conn.cursor()
-    query = 'SELECT code  FROM RestoePassCode WHERE iduser = ?'
+    query = 'SELECT code  FROM RestorePassCode WHERE iduser = ?'
     cursor.execute(query, (id, ))
     df= cursor.fetchall()
     conn.commit()
