@@ -3,7 +3,6 @@ import Cookies  from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
 const LoginOut = ()=>{
-    console.log(Cookies.get('session'))
     if(Cookies.get("session") !== undefined){
         var log = 'logout'
     }
@@ -12,8 +11,6 @@ const LoginOut = ()=>{
     }
     const  nav = useNavigate()
     function handleLogout(){
-        console.log('asd')
-        console.log(Cookies.get('session'))
        if(Cookies.get("session") !== undefined){
            Cookies.remove("session")
            nav("/")

@@ -23,7 +23,6 @@ export function Home(){
                     </h4>
                 </div>
                 <div className="content">
-                    content
                     <div>
                        <LoginOut/>
                     </div>

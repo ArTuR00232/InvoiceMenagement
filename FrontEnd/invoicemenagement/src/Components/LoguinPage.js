@@ -31,7 +31,7 @@ export const LoginPage = () =>
 
         const HandleSingup = ()=>{
             
-            nav('/singUp')
+            nav('/Singup')
         }
 
         function fetchingUser(){
@@ -73,7 +73,7 @@ export const LoginPage = () =>
                                 Login
                             </h4>
                         </div>
-                <form className = "Form_box" >
+                <form className = "form_box" >
                     <div className = "content_form">
                         <div className ="form">
                             <input className="input"  name = 'user' placeholder="user" value ={login.user} onChange={handleLogin}></input>
