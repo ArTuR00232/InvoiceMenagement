@@ -5,6 +5,7 @@ import Invoices from "./Invoices";
 import LoginPage from "./LoguinPage.js";
 import UserPage from "./UserP.js";
 import SingUpPage from "./singUp.js";
+import Certify from "./FogotPass.js";
 
 export const Routies = () =>{
     return (
@@ -15,6 +16,7 @@ export const Routies = () =>{
                 <Route Component={LoginPage} path="/login"/>
                 <Route Component={UserPage} path = "/UserPage"/>
                 <Route Component={SingUpPage} path="/Singup"/>
+                <Route Component={Certify} path="/ForgotPass"/>
             </Routes>
         </BrowserRouter>
     )

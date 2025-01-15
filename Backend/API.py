@@ -19,7 +19,28 @@ def getVerificationCode(Code='', IdUser=''):
 @app.route('/API/code/<string:id>', methods = ['GET'])
 def getCode(id=''):
     result = restCode.consults(id)
+    print(result)
+    return jsonify(result)
+
+#Methods to insert
+@app.route('/API/User/post/<string:username>+<string:passW>', methods = ['POST'])
+def setUser(username, passW):
+    result = User.singup(username, passW)
+    return jsonify(result)
+
+#Methods to update
+@app.route('/API/User/update/<string:Iduser>+<string:pw>+<string:code>', methods = ['POST'])
+def updatePass(Iduser, pw, code):
+    result = User.update(pw, Iduser, code)
     return(result)
+
+
+#Methods to Delete
+@app.route('/API/User/delete/<string:idUser>', methods = ['DELETE'])
+def delUser(idUser):
+    print(idUser)
+    User.delete(idUser)
+    return(['TRUE'])
 
 
 if __name__ == '__main__':
