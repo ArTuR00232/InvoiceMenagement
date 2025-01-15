@@ -29,7 +29,7 @@ export const UserPage = ()=>{
     }
     function fetchDelete(){
         try{
-            var url ='/API/User/delete'+userID
+            var url ='/API/User/delete/'+userID
             fetch(url,{
                 method: 'DELETE',
                 headers:{

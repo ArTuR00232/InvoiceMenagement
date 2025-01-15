@@ -13,7 +13,7 @@ export function SingUpPage(){
         const {name, value} = e.target
         Setsing(prevState =>({
             ...prevState,
-            [name]:value,
+            [name]: value,
         }))
     }
     function singups(){
@@ -41,7 +41,7 @@ export function SingUpPage(){
             }
             else{
                 singups()
-                alert('Welcome'+sing.user+'lets singin')
+                alert('Welcome '+sing.user+' lets singin')
                 nav('/login')
             }
         }
@@ -59,13 +59,13 @@ export function SingUpPage(){
             <form className = 'form_box'>
                 <div className='content_form'>
                     <div className='form'>
-                        <input  className='input' name = 'user' placeholder = 'user' value = {sing.user} onchange={handleInput}></input>
+                        <input  className='input' name = 'user' placeholder = 'user' value = {sing.user} onChange={handleInput}></input>
                     </div>
                     <div  className='form'>
-                        <input  className='input' name = 'pass' placeholder ='password' type = 'password' value = {sing.pass} onchange={handleInput}></input>
+                        <input  className='input' name = 'pass' placeholder ='password' type = 'password' value = {sing.pass} onChange={handleInput}></input>
                     </div>
                     <div  className='form'>
-                        <input  className='input' name = 'passrepeat' placeholder= 'repeat the pass' type = 'password' value = {sing.passrepeat} onchange ={handleInput}></input>
+                        <input  className='input' name = 'passrepeat' placeholder= 'repeat the pass' type = 'password' value = {sing.passrepeat} onChange ={handleInput}></input>
                     </div>
                     <div className = 'form_submit'>
                         <button className = 'button' type = 'button' onClick={HandleSingup}>Singup</button>

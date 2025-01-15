@@ -20,7 +20,8 @@ def consults(id):
     code = [{
         "code": row[0],
     } for row in df]
-    return jsonify(code[0])
+    print('rererer: ',code)
+    return (code)
 
 def codeConsult(code, Username):
     """
@@ -32,8 +33,8 @@ def codeConsult(code, Username):
         (boolean): return the state if is true or false to the code consultf
     """
     conn = Connect.DB()
-    cursor =conn.cursor()
-    query ='SELECT User.id FROM Users JOIN RestorePassCode as RPC ON Users.id = RPC.iduser WHERE RPC.code = ? Users.username = ?'
+    cursor = conn.cursor()
+    query ='SELECT Users.id FROM Users JOIN RestorePassCode as RPC ON Users.id = RPC.iduser WHERE RPC.code = ? AND Users.username = ?'
     cursor.execute(query,(code, Username))
     inf = cursor.fetchall()
     cursor.close()
@@ -57,6 +58,7 @@ def codeInsert(Iduser):
     conn = Connect.DB()
     cursor = conn.cursor()
     query = 'INSERT INTO RestorePassCode (IdUser, Code) VALUES (?,?)'
+    cursor.execute(query,(Iduser,code))
     conn.commit()
     cursor.close()
     conn.close()

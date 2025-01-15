@@ -35,7 +35,7 @@ def consults(Username='', Pass=''):
     except:
         return[False]
 
-def update(key, idUser, code):
+def update(key, Username, code):
     """
     this module is for update the data in table. \n
     key can be the pass or Username, depends the options.\n
@@ -50,11 +50,11 @@ def update(key, idUser, code):
     key = Encryption.encryptMessage(key)
     conn = Connect.DB()
     cursor = conn.cursor()
-    query = "UPDATE Users SET password = ? WHERE id\
+    query = "UPDATE Users SET password = ? WHERE id =\
             (SELECT Users.id FROM Users JOIN RestorePassCode\
             ON Users.id = RestorePassCode.iduser\
             WHERE Users.username = ? AND RestorePassCode.Code = ?)"
-    cursor.execute(query,(key, username, code))
+    cursor.execute(query,(key, Username, code))
     conn.commit()
     cursor.close()
     conn.close()
@@ -111,7 +111,7 @@ def userGetID(username):
     """
     conn = Connect.DB()
     cursor = conn.cursor()
-    query = 'SELECT ID FORM Users WHERE username == ?'
+    query = 'SELECT ID FROM Users WHERE username == ?'
     cursor.execute(query, (username,))
     conn.commit()
     df = cursor.fetchall()
