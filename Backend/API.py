@@ -19,8 +19,7 @@ def getVerificationCode(Code='', IdUser=''):
 @app.route('/API/code/<string:id>', methods = ['GET'])
 def getCode(id=''):
     result = restCode.consults(id)
-    print(result)
-    return jsonify(result)
+    return jsonify(result[0])
 
 #Methods to insert
 @app.route('/API/User/post/<string:username>+<string:passW>', methods = ['POST'])

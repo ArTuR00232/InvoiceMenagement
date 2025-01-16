@@ -1,5 +1,4 @@
 import Connect, random, string, Connect
-from flask import jsonify
 
 def consults(id):
     """
@@ -7,7 +6,7 @@ def consults(id):
     @Param\n
         id: id to the code\n
     @Return\n
-        (Json): to the front end needs to be a Json obj, is the code
+        (list): list with one code
     """
     conn = Connect.DB()
     cursor = conn.cursor()
@@ -20,7 +19,6 @@ def consults(id):
     code = [{
         "code": row[0],
     } for row in df]
-    print('rererer: ',code)
     return (code)
 
 def codeConsult(code, Username):
@@ -40,8 +38,6 @@ def codeConsult(code, Username):
     cursor.close()
     conn.close()
     if(inf != []):
-        print(inf)
-        print(True)
         return[True]
     else:
         return[False]
