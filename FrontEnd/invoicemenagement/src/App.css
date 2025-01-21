@@ -102,6 +102,12 @@
 .title_gen{
   text-decoration: underline;
 }
+.utility-box
+{
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+}
 
 /* Forgot pass */
 .forgotPass{
@@ -151,3 +157,209 @@
 }
 
 
+/*Money*/
+.Spend{
+  height: 20px ;
+  width: 158px ;
+}
+
+.boxer{
+  padding-left: 25px ;
+  max-height: 220px;
+  border-radius: 5px;
+  overflow: scroll;
+  border: solid black 2px;
+  box-shadow: 5px 5px grey;
+  margin-left: 20%;
+  width: 800px;
+}
+.namer
+{
+  justify-content: center;
+  display: flex;
+}
+.money_box{
+  width: 100%;
+
+}
+.contM
+{
+  padding-bottom:25px ;
+} 
+
+.spendBox-header{
+
+  justify-content: center;
+  margin-top: 30px;
+  
+}
+
+.conv
+{
+  display: flex;
+  margin: 2px;
+  justify-content: center;
+}
+.Spend,.Date, .delete,.edit,.image
+{
+  box-shadow: 2px 2px grey;
+  display: inline-block;
+  margin: 5px;
+  padding: 5px;
+  height: 30px !important;
+}
+
+.grade
+{
+  display: flex;
+  justify-content: center;
+  width: 262px;
+  max-height: 60px; 
+}
+
+.Spend
+{
+  margin-right: 50px !important;
+}
+.Date
+{
+  margin-left: 30px !important;
+  margin-right: 30px !important;
+}
+.buttons
+{
+  display: flex; 
+}
+.addSpend,.refresh,.button
+{
+
+  box-shadow: 2px 2px grey;
+  margin: 5px;
+  border: solid black 2px;
+  border-radius: 5px;
+}
+
+.read
+{
+  display: flex;
+  justify-content: center;
+}
+
+
+.descriptionShow
+{
+  margin:10px;
+  padding: 0 10px;
+  max-height: 100px;
+  overflow: hidden;
+  transition: max-height 0.1s ease-out;
+  background-color: #f1f1f1;
+  overflow: scroll;
+}
+.description 
+{
+  display: none;
+  padding: 0 10px;
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height 0.1s ease-out;
+  background-color: #f1f1f1;
+}
+
+
+.modalBox{
+  box-shadow: 5px 5px grey;
+  
+}
+.modalBox, .overlay {
+
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  
+}
+
+.overlay {
+  background: rgba(49,49,49,0.5);
+}
+
+.update-content {
+  overflow: scroll;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1.4;
+  background: #f1f1f1;
+  padding: 14px 28px;
+  border-radius: 3px;
+  max-height: 458px;
+  min-width: 300px;
+}
+
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 7px;
+}
+
+.spendedBank, .dateBank,.Spend,.Date
+{
+  margin: 5px;
+  padding: 5px;
+  border: solid gray 1px;
+  border-radius:15px;
+  box-shadow: 2px 2px gray !important;
+}
+.searcher
+{
+  display: flex;
+  justify-content: center;
+  border-radius: 15px;
+}
+
+/*home, money,*/
+.InvoicePage,.home
+{
+  margin-left:25px;
+}
+
+.content
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+/*months*/
+.montSpend
+{
+  overflow-y: scroll; 
+  max-height: 250px;
+  width: 100%;
+  border: solid black 2px;
+  margin:2px;
+  border-radius: 5px;
+  box-shadow: 5px 5px grey;
+}
+.bankContent
+{
+  margin: 56px;
+  
+}
+.spendedBank, .dateBank
+{
+  border-radius: 25px;
+  margin-bottom: 5px;
+  margin-top: 2px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
