@@ -12,10 +12,9 @@ def consults(idUser):
 
     """
     conn = Connect.DB()
-    iduser = request.args.get('idUser', idUser )
     cursor = conn.cursor()
-    query = 'SELECT Money.id, Date, Spend, Description, name, color from Money WHERE Money.iduser = ?'
-    cursor.execute(query, (f'{idUser}'))
+    query = 'SELECT Money.id, Date, Spend, Description from Money WHERE Money.iduser = ?'
+    cursor.execute(query, (idUser,))
     df = cursor.fetchall()
 
     list_df=[{
@@ -55,53 +54,51 @@ def update(IdUser, id, spend, date, spendOld, description =''):
     conn.commit()
     conn.close()
 
-    def insert(IdUser, spend, date, description=''):
-        """_summary_
-        insert data in the table Money.\n
+def insert(IdUser, spend, date, description=''):
+    """_summary_
+    insert data in the table Money.\n
 
-        Args:\n
-            IdUser (int): user id \n
-            spend (float): the money spent.\n
-            date (str): date that the user spend money\n
-            description (str, optional): Defaults to ''.\n
+    Args:\n
+        IdUser (int): user id \n
+        spend (float): the money spent.\n
+        date (str): date that the user spend money\n
+        description (str, optional): Defaults to ''.\n
 
-        Returns:\n
-            int: id User
-        """
-        
-        if(description ==' Null'):
-            description =''
-        print('insert')
-        conn =  Connect.DB()
-        cursor = conn.cursor()
-        query = 'INSET INTO Money (iduser, Spend, Date, Description), Values (?,?,?,?)'
-        cursor.execute(query,(IdUser, spend, date, description))
-        conn.commit()
-        cursor.close()
-        conn.close()
-
-        result = consults(IdUser)
-        return result
+    Returns:\n
+        int: id User
+    """
     
-    def delete(id = '', idUser =''):
-        """
-        delete data in the table Money.\n
+    if(description ==' Null'):
+        description =''
+    print('insert')
+    conn =  Connect.DB()
+    cursor = conn.cursor()
+    query = 'INSET INTO Money (iduser, Spend, Date, Description), Values (?,?,?,?)'
+    cursor.execute(query,(IdUser, spend, date, description))
+    conn.commit()
+    cursor.close()
+    conn.close()
 
-        Args:\n
-            id (str, optional): spend id. Defaults to ''.\n
-            idUser (str, optional): is of the user. Defaults to ''.\n
-        """
-        conn = Connect.DB()
-        cursor = conn.cursor()
-        if(id != ' '):
-            query = 'DELETE DROM Money WHERE id = ?'
-            cursor.execute(query,(id,))
-            conn.commit()
-            print('delete')
-
-        if(idUser !=' '):
-            query ='DELETE FROM Money WHERE iduser = ?'
-            cursor.execute(query,(idUser,))
-            conn.commit()
-        cursor.close()
-        conn.close()
+    result = consults(IdUser)
+    return result
+    
+def delete(id = '', idUser =''):
+    """
+    delete data in the table Money.\n
+    Args:\n
+        id (str, optional): spend id. Defaults to ''.\n
+        idUser (str, optional): is of the user. Defaults to ''.\n
+    """
+    conn = Connect.DB()
+    cursor = conn.cursor()
+    if(id != ' '):
+        query = 'DELETE DROM Money WHERE id = ?'
+        cursor.execute(query,(id,))
+        conn.commit()
+        print('delete')
+    if(idUser !=' '):
+        query ='DELETE FROM Money WHERE iduser = ?'
+        cursor.execute(query,(idUser,))
+        conn.commit()
+    cursor.close()
+    conn.close()
