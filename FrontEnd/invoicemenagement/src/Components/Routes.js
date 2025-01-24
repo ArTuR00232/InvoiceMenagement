@@ -6,6 +6,7 @@ import UserPage from "./UserP.js";
 import SingUpPage from "./singUp.js";
 import Certify from "./FogotPass.js";
 import Invoices from "./InvoicePage.js";
+import AddSpend from './AddSpend.js'
 
 
 export const Routies = () =>{
@@ -15,6 +16,7 @@ export const Routies = () =>{
                 <Route Component={Home} path = "/"/>
                 <Route Component={LoginPage} path="/login"/>
                 <Route Component={Invoices} path="/invoices"/>
+                <Route Component={AddSpend} path="/addSpend"/>
                 <Route Component={UserPage} path = "/UserPage"/>
                 <Route Component={SingUpPage} path="/Singup"/>
                 <Route Component={Certify} path="/ForgotPass"/> 

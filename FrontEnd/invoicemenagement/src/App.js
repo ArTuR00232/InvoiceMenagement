@@ -7,7 +7,7 @@ function App(){
     <div className='App'>
       <CookiesProvider defaultSetOptions = {{path : "/"}}>
         <header className='App-header'>
-          <Routies/>
+         <Routies/>
         </header>
       </CookiesProvider>
     </div>

@@ -52,7 +52,7 @@ export const UserPage = ()=>{
                 <Menu/>
             </div>
             <div className = 'space'>
-                <div className = 'Form_box'>
+                <div className = 'form_box'>
                     <div className = 'content_form'>
                         <Namer/>
                         <div className = 'Centralize'>
