@@ -1,5 +1,6 @@
 import Connect
 from flask import jsonify, request
+import Marker, Months
 
 def consults(idUser):
     """
@@ -8,12 +9,11 @@ def consults(idUser):
         idUser (int):\n 
 
     Returns:\n
-        (Json): json with all the informations that the front end need
-
+        (Json): json with all the informations that the front end need.
     """
     conn = Connect.DB()
     cursor = conn.cursor()
-    query = 'SELECT Money.id, Date, Spend, Description from Money WHERE Money.iduser = ?'
+    query = 'SELECT Money.id, Date, Spend, Description, name, color from Money JOIN marker on Money.marker_id = marker.id WHERE Money.iduser = ?'
     cursor.execute(query, (idUser,))
     df = cursor.fetchall()
 
@@ -22,11 +22,13 @@ def consults(idUser):
         'Spended': row[2],
         'Date': row[1],
         'Description': row[3],
+        'Marker':row[4],
+        'Color':row[5]
     } for row in df]
     conn.close()
     return jsonify(list_df)
 
-def update(IdUser, id, spend, date, spendOld, description =''):
+def update(IdUser, id, spend, date, spendOld, dateOld, marker, description =''):
     """
     This module is for update the data of the table.\n
     Args:\n
@@ -35,24 +37,37 @@ def update(IdUser, id, spend, date, spendOld, description =''):
         spend (str): money spended updated\n
         date (str): date when spended the money\n
         spendOld (str): the wrong date (was modified by user)\n
+        dateOld (str): the wrong date (was modified by user)\n
+        marker (str):nameof the marker.\n
         description (str, optional): Description updated. Defaults to ''.\n
 
     Returns:\n
         int: user id
     """
-    
+    print('update Money')
     conn = Connect.DB()
     if(description =='Null'):
         description = ''
     if(spend == '0'):
         delete(id)
-    else:
-        cursor = conn.cursor()
-        query = 'UPDATE Money SET Date = ?, Spend = ?, Description = ? WHERE id = ?'
-        cursor.execute(query, (date, spend, description, id))
+    if(description != 'Null'):
+        marker_data = Marker.consults(IdUser, marker)
+        if(marker_data == False):
+            query = ('UPDATE Money SET Date = ?, Spend = ?, Description = ? WHERE id = ?')
+            cursor = conn.cursor()
+            cursor.execute(query,(date, spend, description, id))
+
+        if(marker_data != False):
+            marker_data = marker_data[0].values()
+            idMarker = marker_data.mapping.get('id')
+            query = ('UPDATE Money SET Date = ?, Spend = ?, Description = ?, marker_id = ? WHERE id = ?')
+            cursor = conn.cursor()
+            cursor.execute(query, (date,spend, description, idMarker, id))
+        
     
     conn.commit()
     conn.close()
+    Months.insertOrUpdate(IdUser, date, spendOld, dateOld, id)
 
 def insert(IdUser, spend, date, description=''):
     """_summary_
@@ -70,15 +85,17 @@ def insert(IdUser, spend, date, description=''):
     
     if(description ==' Null'):
         description =''
-    print('insert')
+    print('insert money')
     conn =  Connect.DB()
     cursor = conn.cursor()
-    query = 'INSET INTO Money (iduser, Spend, Date, Description), Values (?,?,?,?)'
-    cursor.execute(query,(IdUser, spend, date, description))
+    marker = Marker.consults(IdUser,'general')
+    marker_id = marker[0].get('id')
+    query = 'INSERT INTO Money (iduser, Spend, Date, Description, marker_id) Values (?,?,?,?,?)'
+    cursor.execute(query,(IdUser, spend, date, description, marker_id))
     conn.commit()
     cursor.close()
     conn.close()
-
+    Months.insertOrUpdate(IdUser, date)
     result = consults(IdUser)
     return result
     
@@ -92,13 +109,20 @@ def delete(id = '', idUser =''):
     conn = Connect.DB()
     cursor = conn.cursor()
     if(id != ' '):
-        query = 'DELETE DROM Money WHERE id = ?'
+        query = 'SELECT iduser, Date FROM Money WHERE id = ?'
+        cursor.execute(query,(id,))
+        data = cursor.fetchall()
+        query = 'DELETE FROM Money WHERE id = ?'
         cursor.execute(query,(id,))
         conn.commit()
-        print('delete')
+        iduser = data[0][0]
+        date = data[0][1]
+        Months.insertOrUpdate(iduser, date, id=id)
+
     if(idUser !=' '):
         query ='DELETE FROM Money WHERE iduser = ?'
         cursor.execute(query,(idUser,))
         conn.commit()
+        Months.delete(idUser)
     cursor.close()
     conn.close()

@@ -1,7 +1,7 @@
 import Connect
 from flask import jsonify
 import Encryption
-import Code as restCode
+import Code as restCode, Money, Marker
 
 def consults(Username='', Pass=''):
     """
@@ -10,7 +10,7 @@ def consults(Username='', Pass=''):
         Pass (str): _description_. Defaults to ''.\n
 
     Returns:\n
-        _type_: json Object\n
+        Json: json Object\n
     """
     conn = Connect.DB()
     cursor = conn.cursor()
@@ -45,7 +45,7 @@ def update(key, Username, code):
         code (string): Code for change pass.\n
 
     Returns:\n
-        _type_: Json\n
+        List: list with one booblean argument\n
     """
     key = Encryption.encryptMessage(key)
     conn = Connect.DB()
@@ -65,7 +65,7 @@ def singup(username, Pass):
     Made a singup an user in table.\n
     Args:
         username (string): User name  \n
-        Pass (string): password\n
+        Pass (string): password of the user\n
     """
     info = Encryption.encryptMessage(Pass)
     Pass = info
@@ -82,11 +82,11 @@ def singup(username, Pass):
 
 def delete(id):
     """
-    This modeule is for delete an User.\n
+    Delete an User on the table user.\n
     Args:\n
         id (int): is the idUser.\n
     Returns:\n
-        _type_: string\n
+        string: user name of the user \n
     """
     conn = Connect.DB()
     cursor = conn.cursor()
@@ -97,7 +97,9 @@ def delete(id):
     cursor.execute(query,(id,))
     conn.commit()
     conn.close()
+    Money.delete(' ',id)
     restCode.codeDelete(id)
+    Marker.deleteAll(id)
     return(name[0][0])
 
 def userGetID(username):
@@ -107,7 +109,7 @@ def userGetID(username):
         username (string): user name\n
 
     Returns:\n
-        _type_: int\n
+        int: id of the user\n
     """
     conn = Connect.DB()
     cursor = conn.cursor()
