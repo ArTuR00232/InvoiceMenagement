@@ -20,24 +20,22 @@ export const Edit = (M)=>{
     const[Filter, setFilter] = useState([Markers])
     const [Color, setColor] = useState('')
     const nav = useNavigate()
-  
 
-   const handleInputChange = (e) => {
-   const searchMarker = e.target.value;
-   setSearch(searchMarker)
-
-    const filteredMarker = Markers.filter((Marker)=>
-    Marker.name.includes(searchMarker))
-    setFilter(filteredMarker)
-    onChange(e)
+    const handleInputChange = (e) => {
+        const searchMarker = e.target.value;
+        setSearch(searchMarker)
+        const filteredMarker = Markers.filter((Marker)=>
+        Marker.name.includes(searchMarker))
+        setFilter(filteredMarker)
+        onChange(e)
     }
 
     const [form, Setform] = useState({
-     ID: '',
-     Spended :'',
-     Date :'',
-      Description :'',
-      Marker :'',
+        ID: '',
+        Spended :'',
+        Date :'',
+        Description :'',
+        Marker :'',
     })
 
     useEffect(()=>{
@@ -83,24 +81,23 @@ export const Edit = (M)=>{
     }
 
     const Edit = () =>{
-    console.log('edit')
-    check()
-    try
-    {
-        var url = `http:  127.0.0.1:5000/Api/Money/update/${Iduser}+${invoice.Id}+${form.Spended}+${form.Date}+${form.Marker}+${form.Description}+${invoice.Spended}+${invoice.Date}`
-        fetch(url,{
-            method: 'Post',
-            headers:{
-            'Content-Type': "application/Json"
-            }
-        })
-        .then(toggleCloseModal())
+        check()
+        try
+        {
+            var url = `/API/Money/update/${Iduser}+${invoice.Id}+${form.Spended}+${form.Date}+${form.Marker}+${form.Description}+${invoice.Spended}+${invoice.Date}`
+            fetch(url,{
+                method: 'POST',
+                headers:{
+                'Content-Type': "application/Json"
+                }
+            })
+            .then(toggleCloseModal())
             .then(window.location.reload())
-    }
-    catch(e)
-    {
-        console.error('fetch error: ' + e)
-    }
+        }
+        catch(e)
+        {
+            console.error('fetch error: ' + e)
+        }
     }
 
     const toggleCloseModal = ()=>{
@@ -113,7 +110,7 @@ export const Edit = (M)=>{
     }
 
     function checkMarker(){
-    fetch("/Api/Marker/"+Iduser)
+    fetch("/API/Marker/"+Iduser)
     .then(Response=>Response.json())
     .then(Markers => {SetMarkers(Markers)})
     .catch(err => console.error('error fetching:',err ))
@@ -121,8 +118,7 @@ export const Edit = (M)=>{
 
     function setMarker(){
         let color = Color.hex.split('#')
-        let url = '/Api/marker/post/'+Iduser+'+'+search+'+'+color[1]
-        console.log(url)
+        let url = '/API/Marker/post/'+Iduser+'+'+search+'+'+color[1]
         fetch(url,{
             method: 'POST',
             headers: {
@@ -133,12 +129,12 @@ export const Edit = (M)=>{
     }
 
     function deleteMarker(Id){     
-        let url='/Api/marker/delete/'+Id
+        let url='/API/Marker/delete/'+Id
         fetch(url,({
         method : 'DELETE',
         'Content-Type':'Application/Json'
         }))
-        .then(nav('/Spend'))
+        .then(nav('/invoices'))
     }
 
     return(
@@ -170,11 +166,6 @@ export const Edit = (M)=>{
                 <div className="centralize">
                 <input className='Spendbox' name="Description" type="text"  key={invoice.Id} placeholder={invoice.Description}  onChange={onChange}></input>
                 </div>
-
-                {/* <p className="centralize">Marker: </p>
-                <div className="centralize">
-                <input className='Spendbox' name="Marker" type="text" key={invoice.Id} placeholder={invoice.Marker|| 'ex: shopping'}  onChange={'onChange'}></input>
-                </div> */}
 
                 <p className="centralize">Marker: </p>
                 <div className="centralize">
@@ -208,9 +199,14 @@ export const Edit = (M)=>{
                     <div className="centralize">
                     <ul>
                         {Filter.map(Marker=><div className="buttons">
-                                            <li key={Marker.id} onClick={()=>setSearch(Marker.name)}>{Marker.name}</li>
-                                            <button className="button" onClick={()=>deleteMarker(Marker.id)}>🗑</button>
-                                            </div>)}
+                        <li key={Marker.id} onClick={()=>setSearch(Marker.name)}>{Marker.name}</li>
+                        {Marker.name == 'general'
+                        ?<div></div>
+                        :<div>
+                            <button className="button" onClick={()=>deleteMarker(Marker.id)}>🗑</button>                            
+                        </div>  
+                        }
+                        </div>)}
 
                     </ul>
                     </div>
@@ -222,8 +218,7 @@ export const Edit = (M)=>{
                 </div> 
                 }
                 </div>}
-                </div>                
-
+                </div>
                 <p></p>
                 <button className="close-modal" onClick={toggleCloseModal}>
                 X
