@@ -21,6 +21,8 @@ export const Invoices = () => {
     spent:'',
     Date:'',
     Description:'',
+    Marker:'',
+    Color:'',
  }])
  const [search, setSearch] = useState('')
  const [selected, setSelected] = useState(null)
@@ -53,13 +55,6 @@ export const Invoices = () => {
     .then(total => {setSpended(total)})
     .catch(error => console.error('fetching error: ', error))
 
-    if(total[0].id!='ID'){
-        var today = Date.now()
-        today = new Date(today)
-        let month = today.getMonth()+1
-        let year = today.getFullYear()
-        setSearch(year+month)
-    }
  }
  function filterData(){
     let infos = []
@@ -105,6 +100,10 @@ export const Invoices = () => {
         nav('/login')
     }
  }
+ function refresh(){
+    setSearch('')
+    fetchData()
+ }
  return(
     <div className='spendBox'>
         <div className='top-menu'>
@@ -147,7 +146,7 @@ export const Invoices = () => {
                 <div className='contM'>
                     <div className='utility-box'>
                         <button className='addSpend' type='button' title='Add invoice' onClick={addS}>+</button>
-                        <button className='refresh' title='Refresh' onClick={()=>fetchData()}>⟳</button>
+                        <button className='refresh' title='Refresh' onClick={()=>refresh()}>⟳</button>
                     </div>
                     <headers className='spendBox-header'>
                         <div className='boxer'>
@@ -158,6 +157,9 @@ export const Invoices = () => {
                             }).map(Item => (
                                 <div className='money_box' key = {Item.Id}>
                                     <div className='conv'>
+                                        <p className='marker' style={{backgroundColor: Item.Color}}>
+                                            <span className='hoverMarker'>{Item.Marker}</span>
+                                        </p>
                                         <div className='grade'>
                                             <div className='Spend'>
                                                 💸 Spended: R${Item.Spended}
