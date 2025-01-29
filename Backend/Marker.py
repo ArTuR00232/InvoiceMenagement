@@ -1,5 +1,6 @@
 import Connect
 from flask import jsonify
+import Money
 
 def consults(iduser, name = ''):
     """
@@ -23,7 +24,6 @@ def consults(iduser, name = ''):
         } for row in df]
         return list_marker
     if(name != ''):
-        print(iduser)
         query = ('SELECT id, name, color FROM marker WHERE  idUser = ? AND name = ?')
         cursor.execute(query,(iduser, name))
         df = cursor.fetchall()
@@ -73,7 +73,7 @@ def update(name, color = '', id = ''):
     cursor.close()
     conn.close()
 
-def delete(id):
+def delete(id, iduser):
     """
     module to delete from table marker\n
     Args:\n
@@ -83,6 +83,13 @@ def delete(id):
     """
     conn = Connect.DB()
     cursor = conn.cursor()
+    query = 'SELECT id FROM marker WHERE idUser = ? AND name = "general"'
+    cursor.execute(query,(iduser,))
+    df = cursor.fetchall()
+    if(df != []):
+        query = 'UPDATE Money SET marker_id = ? WHERE marker_id = ?'
+        cursor.execute(query,(df[0][0], id))
+        conn.commit()
     query = 'DELETE FROM marker WHERE id = ?'
     cursor.execute(query,(id,))
     conn.commit()

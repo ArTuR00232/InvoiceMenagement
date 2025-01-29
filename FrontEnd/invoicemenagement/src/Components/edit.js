@@ -129,12 +129,14 @@ export const Edit = (M)=>{
     }
 
     function deleteMarker(Id){     
-        let url='/API/Marker/delete/'+Id
+        let url='/API/Marker/delete/'+Id+'+'+Iduser
         fetch(url,({
         method : 'DELETE',
         'Content-Type':'Application/Json'
         }))
-        .then(nav('/invoices'))
+        .then(toggleCloseModal())
+        .then(window.location.reload())
+
     }
 
     return(

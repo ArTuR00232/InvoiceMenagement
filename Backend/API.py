@@ -23,8 +23,6 @@ def getCode(id=''):
 
 @app.route('/API/Money/<string:IdUser>', methods = ['GET'])
 def getMoney(IdUser):
-    print(IdUser)
-
     result = Money.consults(IdUser)
     return (result)
 
@@ -86,9 +84,9 @@ def delMoney(id):
     Money.delete(id)
     return(['TRUE'])
 
-@app.route('/API/Marker/delete/<int:id>', methods = ['DELETE','OPTIONS'])
-def delMarker(id):
-    Marker.delete(id)
+@app.route('/API/Marker/delete/<int:id>+<string:idUser>', methods = ['DELETE','OPTIONS'])
+def delMarker(id, idUser):
+    Marker.delete(id, idUser)
     return(['TRUE'])
 
 
