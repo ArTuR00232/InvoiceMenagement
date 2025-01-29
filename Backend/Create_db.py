@@ -46,9 +46,61 @@ def TableKey():
     cursor.close()
     conn.close()
 
+def tableMoney():
+    conn = Connect.DB()
+    cursor = conn.cursor()
+
+    cursor.execute('''
+    CREATE TABLE "Money" (
+	"iduser"	INTEGER NOT NULL,
+	"Date"	    TEXT NOT NULL,
+	"Spend"	    NUMERIC NOT NULL,
+	"id"	    INTEGER NOT NULL UNIQUE,
+	PRIMARY KEY("id" AUTOINCREMENT)
+    );''')
+
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+def tableBank():
+    conn = Connect.DB()
+    cursor = conn.cursor()
+    cursor.execute('''
+    CREATE TABLE "Bank" (
+	"iduser"	INTEGER NOT NULL,
+	"DateM"	    TEXT NOT NULL,
+	"SpendM"	NUMERIC NOT NULL,
+	"id"	    INTEGER NOT NULL UNIQUE,
+	PRIMARY KEY("id" AUTOINCREMENT)
+    );''')
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+def tableMarker():
+    conn = Connect.DB()
+    cursor = conn.cursor()
+    cursor.execute('''
+    CREATE TABLE "marker" (
+	"id"	INTEGER,
+	"Name"	TEXT,
+	"color"	TEXT,
+	"idUser"	INTEGER NOT NULL,
+	PRIMARY KEY("id" AUTOINCREMENT)
+    );
+    ''')
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+
 
 def init():
     createDB()
     tableUser()
     Tablecode()
     TableKey()
+    tableMoney()
+    tableBank()
+    tableMarker()
