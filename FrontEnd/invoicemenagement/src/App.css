@@ -416,3 +416,10 @@
   height: 20px ;
   width: 158px ;
 }
+
+/*Graph*/
+.graph{
+  margin-left: 20px;
+  max-height: 250px;
+  max-width: 250px;
+}

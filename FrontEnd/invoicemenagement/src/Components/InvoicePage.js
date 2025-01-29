@@ -4,7 +4,8 @@ import Menu from './MenuHeader';
 import Cookies from 'js-cookie';
 import Namer from './userName';
 import Edit from './edit';
-//import Graph from './graph';
+
+import Graph from './Graphs';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -63,10 +64,11 @@ export const Invoices = () => {
         dateToCompare = dateToCompare.split('-')
         dateToCompare = dateToCompare[0]+'-'+dateToCompare[1]
         if(search == dateToCompare){
-            infos.push(data[1])
+            infos.push(data[i])
         }
     }
     setInfo(infos)
+
  }
  const Description = (Id) =>{
     if(selected === Id){
@@ -139,9 +141,9 @@ export const Invoices = () => {
                             ))}
                         </div>
                     </div>
-                </div>
-                <div>
-                    {/* <Graph data = {Info} filter = {search}/> */}
+                    <div>
+                        <Graph data = {Info} filter = {search}/>
+                    </div>
                 </div>
                 <div className='contM'>
                     <div className='utility-box'>
